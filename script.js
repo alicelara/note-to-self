@@ -16,3 +16,14 @@ addNewTask.addEventListener('click', function(e){
 	}
 
 },false);
+
+listTasks.addEventListener('click', function(e) {
+	if(e.target.id.indexOf('deletetask') != -1) {
+		targetElem = document.getElementById(e.target.id);
+		var elementToRemove = targetElem.parentNode;
+		elementToRemove.parentNode.removeChild(elementToRemove);
+		if(listOfTasks.children.length == 0){
+				listTasks.style.display = "none";
+			}
+	}
+}, false);
