@@ -26,4 +26,23 @@ listTasks.addEventListener('click', function(e) {
 				listTasks.style.display = "none";
 			}
 	}
+
+	if(e.target.id.indexOf('taskContent') != -1) {
+		targetElem = document.getElementById(e.target.id);
+		elemId = e.target.id;
+		origElem = targetElem.parentNode;
+		elementToEdit = targetElem.parentNode;
+		oldValue = e.target.textContent;
+		checkElem = elementToEdit.firstChild;
+		delElem = elementToEdit.lastChild;
+		editInput = '<input id ="newValue" class="newtask edittask" type="text" value="' + elementToEdit.textContent +'" />' +
+						'<input id="confirmEdit" class="confirmtask" type="button" value="+" />' +
+						'<input id ="cancelEdit" class="deletetask" type="button" value="-" />' ;
+
+
+		elementToEdit.innerHTML = editInput;
+
+		elementToEdit;
+	}
+
 }, false);
