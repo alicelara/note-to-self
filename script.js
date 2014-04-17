@@ -24,6 +24,16 @@ inputTask.addEventListener('keyup', function(e){
 }, false);
 
 listTasks.addEventListener('click', function(e) {
+	if(e.target.id.indexOf('checkedTask') != -1) {
+		var contentToCross = e.target.parentNode.getElementsByTagName("span");
+		if(e.target.checked) {
+			contentToCross[0].style.textDecoration = "line-through";
+		} else {
+			contentToCross[0].style.textDecoration = "none";
+
+		}
+	}
+	
 	if(e.target.id.indexOf('deletetask') != -1) {
 		targetElem = document.getElementById(e.target.id);
 		var elementToRemove = targetElem.parentNode;
