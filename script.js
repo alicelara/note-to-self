@@ -45,4 +45,25 @@ listTasks.addEventListener('click', function(e) {
 		elementToEdit;
 	}
 
+	if(e.target.id == "confirmEdit") {
+		confirmEdit (e);
+	}
+	else if(e.target.id == "cancelEdit") {
+		cancelEdit(e);
+	}
+
+	function confirmEdit (ev) {
+		var newValue = ev.target.parentNode.querySelector("#newValue").value
+		elementToEdit.innerHTML = '<span id="'+ elemId + '" class="taskContent">'+ newValue +'</span>'
+		elementToEdit.insertBefore(checkElem, elementToEdit.firstChild);
+		elementToEdit.appendChild(delElem);
+		elementToEdit = '';
+	}
+			
+	function cancelEdit (ev) {	
+		elementToEdit.innerHTML = '<span id="'+ elemId + '" class="taskContent">'+ oldValue +'</span>'
+		elementToEdit.insertBefore(checkElem, elementToEdit.firstChild);
+		elementToEdit.appendChild(delElem);			
+	}
+
 }, false);
