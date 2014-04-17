@@ -2,7 +2,7 @@ var addNewTask = document.getElementById('addtask');
 var inputTask = document.getElementById("newtask");
 var listTasks = document.getElementById("listOfTasks");
 
-addNewTask.addEventListener('click', function(e){
+var addTasks = function(){
 	if(inputTask.value !== ""){
 		listTasks.style.display = "block";
 		var newTask = document.createElement("div");
@@ -15,7 +15,13 @@ addNewTask.addEventListener('click', function(e){
 		inputTask.value = '';
 	}
 
-},false);
+};
+
+inputTask.addEventListener('keyup', function(e){
+	if(e.keyCode == 13){
+		addTasks();
+	}
+}, false);
 
 listTasks.addEventListener('click', function(e) {
 	if(e.target.id.indexOf('deletetask') != -1) {
