@@ -1,6 +1,8 @@
+
 var addNewTask = document.getElementById('addtask');
 var inputTask = document.getElementById("newtask");
 var listTasks = document.getElementById("listOfTasks");
+var targetElem, elementToEdit, checkElem, delElem, editInput, elemId, oldValue;
 
 var addTasks = function(){
 	if(inputTask.value !== ""){
@@ -32,39 +34,48 @@ listTasks.addEventListener('click', function(e) {
 			contentToCross[0].style.textDecoration = "none";
 
 		}
-	}
-	
-	if(e.target.id.indexOf('deletetask') != -1) {
+	} else if(e.target.id.indexOf('deletetask') != -1) {
 		targetElem = document.getElementById(e.target.id);
 		var elementToRemove = targetElem.parentNode;
 		elementToRemove.parentNode.removeChild(elementToRemove);
 		if(listOfTasks.children.length == 0){
 				listTasks.style.display = "none";
 			}
-	}
+	} else if(e.target.id.indexOf('taskContent') != -1) {
+		var listInputs = listTasks.getElementsByTagName('input');
 
-	if(e.target.id.indexOf('taskContent') != -1) {
-		targetElem = document.getElementById(e.target.id);
-		elemId = e.target.id;
-		origElem = targetElem.parentNode;
-		elementToEdit = targetElem.parentNode;
-		oldValue = e.target.textContent;
-		checkElem = elementToEdit.firstChild;
-		delElem = elementToEdit.lastChild;
-		editInput = '<input id ="newValue" class="newtask edittask" type="text" value="' + elementToEdit.textContent +'" />' +
-						'<input id="confirmEdit" class="confirmtask" type="button" value="+" />' +
-						'<input id ="cancelEdit" class="deletetask" type="button" value="-" />' ;
+		for (var i = 0; i < listInputs.length; i++) {
+			if(listInputs[i].type == "text"){
+				listInputs[i] = origElem;
+				return listInputs[i];
+			} else if(document.getElementById('newValue') < 1  ){
+				targetElem = document.getElementById(e.target.id);
+				elemId = e.target.id;
+				origElem = targetElem.parentNode;
+				elementToEdit = targetElem.parentNode;
+				oldValue = e.target.textContent;
+				checkElem = elementToEdit.firstChild;
+				delElem = elementToEdit.lastChild;
+				editInput = '<input id ="newValue" class="newtask edittask" type="text" value="' + elementToEdit.textContent +'" />' +
+								'<input id="confirmEdit" class="confirmtask" type="button" value="+" />' +
+								'<input id ="cancelEdit" class="deletetask" type="button" value="-" />' ;
 
+		
+				elementToEdit.innerHTML = editInput;
 
-		elementToEdit.innerHTML = editInput;
-
-		elementToEdit;
-	}
-
-	if(e.target.id == "confirmEdit") {
+				elementToEdit.addEventListener('keyup', function(ev){
+					if(ev.keyCode == 13){
+						confirmEdit(ev);
+					}
+				}, false);
+				return elementToEdit;
+			}
+		};
+			
+		
+	} else if(e.target.id == "confirmEdit") {
 		confirmEdit (e);
-	}
-	else if(e.target.id == "cancelEdit") {
+	} else if(e.target.id == "cancelEdit") {
 		cancelEdit(e);
 	}
 
@@ -82,4 +93,4 @@ listTasks.addEventListener('click', function(e) {
 		elementToEdit.appendChild(delElem);			
 	}
 
-}, false);
+},false	)
